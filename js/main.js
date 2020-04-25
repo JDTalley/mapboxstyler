@@ -32,22 +32,48 @@ map.on('load', function () {
     });
 
     map.addLayer({
-        'id': 'population',
+        'id': 'pointLayer',
         'type': 'circle',
         'source': 'points',
         'paint': {
             // make circles larger as the user zooms from z12 to z22
-            'circle-radius': {
-                'base': 15,
-                'stops': [
-                    [12, 15],
-                    [22, 280]
-                ]
-            },
+            'circle-radius': 10,
             // color circles by ethnicity, using a match expression
             // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
-            'circle-color': '#3269a8'
+            'circle-color': '#000'
         }
     });
 });
 
+$(document).ready(function(){
+    $('#changePoint').on("click", function(){
+        var inputRadius = parseInt($('#pointRadius').val());
+        var inputColor = $('#pointColor').val();
+
+        var pointRadius = 10;
+        var pointColor = '#000';
+
+        if ( inputRadius != null && inputRadius > 0){
+            pointRadius = inputRadius;
+        }
+        pointColor = inputColor;
+
+        // console.log(pointRadius, pointColor);
+        // console.log(typeof(inputRadius));
+
+        map.removeLayer("pointLayer");
+
+        map.addLayer({
+            'id': 'pointLayer',
+            'type': 'circle',
+            'source': 'points',
+            'paint': {
+                // make circles larger as the user zooms from z12 to z22
+                'circle-radius': pointRadius,
+                // color circles by ethnicity, using a match expression
+                // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
+                'circle-color': pointColor
+            }
+        });
+    });
+});
