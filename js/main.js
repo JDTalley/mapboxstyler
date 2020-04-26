@@ -1,6 +1,6 @@
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2V0Y2hlbTIiLCJhIjoiY2s5ZW1zcGNsMDBmODNtcGhjbDI3OWY2cCJ9.Dp0zt7PQr7To4lhw1d5ZUg';
-var map = new mapboxgl.Map({
+let map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
     center: [-80.4139, 37.2296], // starting position [lng, lat]
@@ -31,21 +31,127 @@ map.on('load', function () {
         }
     });
 
+});
+
+// main form
+let main = document.querySelector('#main');
+
+// Initiate Values
+let pointRadius = 10;
+let pointColor = 'black';
+
+// Select Point Buttons
+let addPointButton = document.querySelector('#addPoint');
+let submitPoint = document.querySelector('#submitPoint');
+let cancelPoint = document.querySelector('#cancelPoint');
+let pointName = document.querySelector('#pointName');
+let pointRadiusButton = document.querySelector('#pointRadius');
+let pointColorButton = document.querySelector('#pointColor');
+
+addPointButton.addEventListener('click', () => {
+    addPointButton.classList.toggle("hidden");
+
+    let fields = document.querySelectorAll('.point');
+    fields.forEach((e) => {
+        e.classList.toggle("hidden");
+    })
+
     map.addLayer({
         'id': 'pointLayer',
         'type': 'circle',
         'source': 'points',
         'paint': {
             // make circles larger as the user zooms from z12 to z22
-            'circle-radius': 10,
+            'circle-radius': pointRadius,
             // color circles by ethnicity, using a match expression
             // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
-            'circle-color': '#000'
+            'circle-color': pointColor
         }
     });
-});
 
-$(document).ready(function(){
+    pointName.value = "pointLayer";
+    pointRadiusButton.value = pointRadius;
+    pointColorButton.value = 'black';
+})
+
+cancelPoint.addEventListener('click', () => {
+    addPointButton.classList.toggle("hidden");
+
+    let fields = document.querySelectorAll('.point');
+    fields.forEach((e) => {
+        e.classList.toggle("hidden");
+    })
+})
+
+pointRadiusButton.addEventListener('change', (e) => {
+    pointRadius = parseInt(e.target.value);
+
+    map.removeLayer("pointLayer");
+
+    map.addLayer({
+        'id': 'pointLayer',
+        'type': 'circle',
+        'source': 'points',
+        'paint': {
+            // make circles larger as the user zooms from z12 to z22
+            'circle-radius': pointRadius,
+            // color circles by ethnicity, using a match expression
+            // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
+            'circle-color': pointColor
+        }
+    });
+})
+
+pointColorButton.addEventListener('change', (e) => {
+    pointColor = e.target.value;
+
+    map.removeLayer("pointLayer");
+
+    map.addLayer({
+        'id': 'pointLayer',
+        'type': 'circle',
+        'source': 'points',
+        'paint': {
+            // make circles larger as the user zooms from z12 to z22
+            'circle-radius': pointRadius,
+            // color circles by ethnicity, using a match expression
+            // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
+            'circle-color': pointColor
+        }
+    });
+})
+
+submitPoint.addEventListener('click', () => {
+    let pointNameVal = pointName.value;
+
+    map.removeLayer("pointLayer");
+
+    map.addLayer({
+        'id': pointNameVal,
+        'type': 'circle',
+        'source': 'points',
+        'paint': {
+            // make circles larger as the user zooms from z12 to z22
+            'circle-radius': pointRadius,
+            // color circles by ethnicity, using a match expression
+            // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
+            'circle-color': pointColor
+        }
+    });
+
+    addPointButton.classList.toggle("hidden");
+
+    let fields = document.querySelectorAll('.point');
+    fields.forEach((e) => {
+        e.classList.toggle("hidden");
+    })
+
+    pointRadius = 10;
+    pointColor = 'black';
+})
+
+// document.ready not necessary.
+/* $(document).ready(function(){
     $('#changePoint').on("click", function(){
         var inputRadius = parseInt($('#pointRadius').val());
         var inputColor = $('#pointColor').val();
@@ -76,4 +182,5 @@ $(document).ready(function(){
             }
         });
     });
-});
+
+});  */
