@@ -57,7 +57,7 @@ addPointButton.addEventListener('click', () => {
     })
 
     map.addLayer({
-        'id': 'pointLayer',
+        'id': 'newPointLayer',
         'type': 'circle',
         'source': 'points',
         'paint': {
@@ -69,7 +69,7 @@ addPointButton.addEventListener('click', () => {
         }
     });
 
-    pointName.value = "pointLayer";
+    pointName.value = "Point Layer";
     pointRadiusButton.value = pointRadius;
     pointColorButton.value = 'black';
 })
@@ -86,10 +86,10 @@ cancelPoint.addEventListener('click', () => {
 pointRadiusButton.addEventListener('change', (e) => {
     pointRadius = parseInt(e.target.value);
 
-    map.removeLayer("pointLayer");
+    map.removeLayer("newPointLayer");
 
     map.addLayer({
-        'id': 'pointLayer',
+        'id': 'newPointLayer',
         'type': 'circle',
         'source': 'points',
         'paint': {
@@ -105,10 +105,10 @@ pointRadiusButton.addEventListener('change', (e) => {
 pointColorButton.addEventListener('change', (e) => {
     pointColor = e.target.value;
 
-    map.removeLayer("pointLayer");
+    map.removeLayer("newPointLayer");
 
     map.addLayer({
-        'id': 'pointLayer',
+        'id': 'newPointLayer',
         'type': 'circle',
         'source': 'points',
         'paint': {
@@ -124,30 +124,36 @@ pointColorButton.addEventListener('change', (e) => {
 submitPoint.addEventListener('click', () => {
     let pointNameVal = pointName.value;
 
-    map.removeLayer("pointLayer");
+    if(pointNameVal === "newPointLayer") {
+        console.log("Reserved Name");
+    } else if(map.getLayer(pointNameVal)) {
+        console.log("Name already exists");
+    } else {
+        map.removeLayer("newPointLayer");
 
-    map.addLayer({
-        'id': pointNameVal,
-        'type': 'circle',
-        'source': 'points',
-        'paint': {
-            // make circles larger as the user zooms from z12 to z22
-            'circle-radius': pointRadius,
-            // color circles by ethnicity, using a match expression
-            // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
-            'circle-color': pointColor
-        }
-    });
+        map.addLayer({
+            'id': pointNameVal,
+            'type': 'circle',
+            'source': 'points',
+            'paint': {
+                // make circles larger as the user zooms from z12 to z22
+                'circle-radius': pointRadius,
+                // color circles by ethnicity, using a match expression
+                // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
+                'circle-color': pointColor
+            }
+        });
 
-    addPointButton.classList.toggle("hidden");
+        addPointButton.classList.toggle("hidden");
 
-    let fields = document.querySelectorAll('.point');
-    fields.forEach((e) => {
-        e.classList.toggle("hidden");
-    })
+        let fields = document.querySelectorAll('.point');
+        fields.forEach((e) => {
+            e.classList.toggle("hidden");
+        })
 
-    pointRadius = 10;
-    pointColor = 'black';
+        pointRadius = 10;
+        pointColor = 'black';
+    }
 })
 
 // document.ready not necessary.
