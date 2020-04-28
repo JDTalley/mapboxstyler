@@ -1,5 +1,7 @@
-
+// Needs to be moved to separate file
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2V0Y2hlbTIiLCJhIjoiY2s5ZW1zcGNsMDBmODNtcGhjbDI3OWY2cCJ9.Dp0zt7PQr7To4lhw1d5ZUg';
+
+// Initiate Map object
 let map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
@@ -7,6 +9,26 @@ let map = new mapboxgl.Map({
     zoom: 10 // starting zoom
 });
 
+// main form
+let main = document.querySelector('#main');
+
+// Initiate Values
+let pointRadius = 10;
+let pointColor = 'black';
+
+// Select Point Buttons
+let addPointButton = document.querySelector('#addPoint');
+let editPointButton = document.querySelector('#editPoint');
+let submitPoint = document.querySelector('#submitPoint');
+let cancelPoint = document.querySelector('#cancelPoint');
+let pointName = document.querySelector('#pointName');
+let pointRadiusButton = document.querySelector('#pointRadius');
+let pointColorButton = document.querySelector('#pointColor');
+
+// Layer Arrays
+let pointArr = [];
+
+// Wait for map to load
 map.on('load', function () {
     map.addSource('points', {
         'type': 'geojson',
@@ -31,22 +53,9 @@ map.on('load', function () {
         }
     });
 
+    // Hide Loading Div
+    //document.querySelector('#main-load').classList.toggle("fadeout");
 });
-
-// main form
-let main = document.querySelector('#main');
-
-// Initiate Values
-let pointRadius = 10;
-let pointColor = 'black';
-
-// Select Point Buttons
-let addPointButton = document.querySelector('#addPoint');
-let submitPoint = document.querySelector('#submitPoint');
-let cancelPoint = document.querySelector('#cancelPoint');
-let pointName = document.querySelector('#pointName');
-let pointRadiusButton = document.querySelector('#pointRadius');
-let pointColorButton = document.querySelector('#pointColor');
 
 addPointButton.addEventListener('click', () => {
     addPointButton.classList.toggle("hidden");
@@ -75,6 +84,8 @@ addPointButton.addEventListener('click', () => {
 })
 
 cancelPoint.addEventListener('click', () => {
+    map.removeLayer('newPointLayer');
+
     addPointButton.classList.toggle("hidden");
 
     let fields = document.querySelectorAll('.point');
@@ -144,7 +155,10 @@ submitPoint.addEventListener('click', () => {
             }
         });
 
+        pointArr.push(pointNameVal);
+
         addPointButton.classList.toggle("hidden");
+        editPointButton.classList.toggle("hidden");
 
         let fields = document.querySelectorAll('.point');
         fields.forEach((e) => {
@@ -155,6 +169,80 @@ submitPoint.addEventListener('click', () => {
         pointColor = 'black';
     }
 })
+
+editPointButton.addEventListener('click', () => {
+    editPointButton.classList.toggle("hidden");
+    addPointButton.classList.toggle("hidden");
+
+    pointArr.forEach(layer => {
+        let input = document.createElement("input");
+        input.type = 'submit';
+        input.value = layer;
+        input.name = layer;
+        input.className = 'edit-point';
+
+        input.addEventListener('click', (e) => {
+            let edits = document.querySelectorAll('.edit-point');
+            edits.forEach(e => {
+                e.classList.toggle("hidden");
+            })
+
+            let fields = document.querySelectorAll('.point');
+            fields.forEach(e => {
+                e.classList.toggle("hidden");
+            })
+
+            let oldLayer = map.getLayer(e.target.value);
+            let oldColorR = oldLayer.paint._values["circle-color"].value.value.r;
+            let oldColorG = oldLayer.paint._values["circle-color"].value.value.g;
+            let oldColorB = oldLayer.paint._values["circle-color"].value.value.b;
+            let oldColorA = oldLayer.paint._values["circle-color"].value.value.a;
+            let oldColorHex = RGBAToHex(oldColorR, oldColorG, oldColorB);
+
+            map.removeLayer(e.target.value);
+        
+            map.addLayer({
+                'id': 'newPointLayer',
+                'type': oldLayer.type,
+                'source': 'points',
+                'paint': {
+                    // make circles larger as the user zooms from z12 to z22
+                    'circle-radius': oldLayer.paint._values["circle-radius"].value.value,
+                    // color circles by ethnicity, using a match expression
+                    // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
+                    'circle-color': oldColorHex
+                }
+            });
+        
+            pointName.value = oldLayer.id;
+            pointRadiusButton.value = oldLayer.paint._values["circle-radius"].value.value;
+            pointColorButton.value = oldColorHex;
+        })
+
+        document.querySelector('#edit').appendChild(input);
+    })
+})
+
+let RGBAToHex = (r,g,b) => {
+    r = parseInt(r).toString(16);
+    console.log(r);
+    g = parseInt(g).toString(16);
+    console.log(g);
+    b = parseInt(b).toString(16);
+    console.log(b);
+    //a = Math.round(a * 255).toString(16);
+
+    if (r.length == 1)
+        r = "0" + r;
+    if (g.length == 1)
+        g = "0" + g;
+    if (b.length == 1)
+        b = "0" + b;
+    //if (a.length == 1)
+        //a = "0" + a;
+
+    return "#" + r + g + b;
+}
 
 // document.ready not necessary.
 /* $(document).ready(function(){
