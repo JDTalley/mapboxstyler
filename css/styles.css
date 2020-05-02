@@ -3,6 +3,22 @@ body {
     padding: 0; 
 }
 
+input {
+    min-width: 0;
+    display: flex;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 25%;
+    justify-content: space-around;
+}
+
+.hidden {
+    display: none;
+}
+
 #map { 
     position: absolute;
     top: 0;
@@ -10,3 +26,10 @@ body {
     right: 0;
     width: 75%; 
 }
+
+/* #main-load {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+} */
