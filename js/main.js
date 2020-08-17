@@ -1,5 +1,5 @@
-// Needs to be moved to separate file
-mapboxgl.accessToken = 'pk.eyJ1Ijoia2V0Y2hlbTIiLCJhIjoiY2s5ZW1zcGNsMDBmODNtcGhjbDI3OWY2cCJ9.Dp0zt7PQr7To4lhw1d5ZUg';
+// Have to add access token to config file
+mapboxgl.accessToken = mbConfig.key;
 
 // Initiate Map object
 let map = new mapboxgl.Map({
@@ -9,27 +9,83 @@ let map = new mapboxgl.Map({
     zoom: 10 // starting zoom
 });
 
-// main form
-let main = document.querySelector('#main');
-
 // Initiate Values
 let pointRadius = 10;
 let pointColor = 'black';
 
+// Select Input div
+let inputdiv = document.querySelector('.input');
+
+// Select Geometry Type
+let geoTypebtn = document.querySelector('.geometry-type');
+
+// Select Point Properties
+let pointdiv = document.querySelector('.input-point');
+
 // Select Point Buttons
-let addPointButton = document.querySelector('#addPoint');
+/* let addPointButton = document.querySelector('#addPoint');
 let editPointButton = document.querySelector('#editPoint');
 let submitPoint = document.querySelector('#submitPoint');
 let cancelPoint = document.querySelector('#cancelPoint');
 let pointName = document.querySelector('#pointName');
 let pointRadiusButton = document.querySelector('#pointRadius');
-let pointColorButton = document.querySelector('#pointColor');
+let pointColorButton = document.querySelector('#pointColor'); */
 
 // Layer Arrays
 let pointArr = [];
 
+// Wait for load
+map.on('load', () => {
+    inputdiv.classList.remove('hidden');
+});
+
+// ********** //
+// Add listeners
+// ********** //
+
+// Geography Type
+geoTypebtn.addEventListener('change', (e) => {
+    geoType(e);
+});
+
+
+// ********** //
+// Functions
+// ********** //
+
+// Geography Type
+function geoType(e) {
+    const gType = e.target.value;
+    console.log(gType);
+
+    map.addSource(gType, {
+        'type': 'geojson',
+        'data': {
+            'type': 'FeatureCollection',
+            'features': [
+                {
+                    // feature for Mapbox DC
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': gType,
+                        'coordinates': [
+                            -80.4139,
+                            37.22
+                        ]
+                    },
+                    'properties': {
+                        'title': 'Blacksburg Point'
+                    }
+                }
+            ]
+        }
+    });
+
+    pointdiv.classList.remove('hidden');
+}
+
 // Wait for map to load
-map.on('load', function () {
+/* map.on('load', function () {
     map.addSource('points', {
         'type': 'geojson',
         'data': {
@@ -55,9 +111,9 @@ map.on('load', function () {
 
     // Hide Loading Div
     //document.querySelector('#main-load').classList.toggle("fadeout");
-});
+}); */
 
-addPointButton.addEventListener('click', () => {
+/* addPointButton.addEventListener('click', () => {
     addPointButton.classList.toggle("hidden");
 
     let fields = document.querySelectorAll('.point');
@@ -81,9 +137,9 @@ addPointButton.addEventListener('click', () => {
     pointName.value = "Point Layer";
     pointRadiusButton.value = pointRadius;
     pointColorButton.value = 'black';
-})
+}) */
 
-cancelPoint.addEventListener('click', () => {
+/* cancelPoint.addEventListener('click', () => {
     map.removeLayer('newPointLayer');
 
     addPointButton.classList.toggle("hidden");
@@ -92,9 +148,9 @@ cancelPoint.addEventListener('click', () => {
     fields.forEach((e) => {
         e.classList.toggle("hidden");
     })
-})
+}) */
 
-pointRadiusButton.addEventListener('change', (e) => {
+/* pointRadiusButton.addEventListener('change', (e) => {
     pointRadius = parseInt(e.target.value);
 
     map.removeLayer("newPointLayer");
@@ -111,9 +167,9 @@ pointRadiusButton.addEventListener('change', (e) => {
             'circle-color': pointColor
         }
     });
-})
+}) */
 
-pointColorButton.addEventListener('change', (e) => {
+/* pointColorButton.addEventListener('change', (e) => {
     pointColor = e.target.value;
 
     map.removeLayer("newPointLayer");
@@ -130,9 +186,9 @@ pointColorButton.addEventListener('change', (e) => {
             'circle-color': pointColor
         }
     });
-})
+}) */
 
-submitPoint.addEventListener('click', () => {
+/* submitPoint.addEventListener('click', () => {
     let pointNameVal = pointName.value;
 
     if(pointNameVal === "newPointLayer") {
@@ -168,9 +224,9 @@ submitPoint.addEventListener('click', () => {
         pointRadius = 10;
         pointColor = 'black';
     }
-})
+}) */
 
-editPointButton.addEventListener('click', () => {
+/* editPointButton.addEventListener('click', () => {
     editPointButton.classList.toggle("hidden");
     addPointButton.classList.toggle("hidden");
 
@@ -221,9 +277,9 @@ editPointButton.addEventListener('click', () => {
 
         document.querySelector('#edit').appendChild(input);
     })
-})
+}) */
 
-let RGBAToHex = (r,g,b) => {
+/* let RGBAToHex = (r,g,b) => {
     r = parseInt(r).toString(16);
     console.log(r);
     g = parseInt(g).toString(16);
@@ -242,7 +298,7 @@ let RGBAToHex = (r,g,b) => {
         //a = "0" + a;
 
     return "#" + r + g + b;
-}
+} */
 
 // document.ready not necessary.
 /* $(document).ready(function(){
