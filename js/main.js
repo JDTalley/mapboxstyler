@@ -10,8 +10,18 @@ let map = new mapboxgl.Map({
 });
 
 // Initiate Values
-let pointRadius = 10;
-let pointColor = 'black';
+let gType;
+
+//Point
+let pointValues = {
+    pointRadius: 5,
+    pointColor: '#000000',
+    pointBlur: 0,
+    pointOpacity: 1,
+    pointSColor: '#000000',
+    pointSOpacity: 1,
+    pointSWidth: 0
+};
 
 // Select Input div
 let inputdiv = document.querySelector('.input');
@@ -19,17 +29,20 @@ let inputdiv = document.querySelector('.input');
 // Select Geometry Type
 let geoTypebtn = document.querySelector('.geometry-type');
 
-// Select Point Properties
-let pointdiv = document.querySelector('.input-point');
+// Select Feat divs
+let featDivs = document.querySelectorAll('.input-feat');
 
-// Select Point Buttons
-/* let addPointButton = document.querySelector('#addPoint');
-let editPointButton = document.querySelector('#editPoint');
-let submitPoint = document.querySelector('#submitPoint');
-let cancelPoint = document.querySelector('#cancelPoint');
-let pointName = document.querySelector('#pointName');
-let pointRadiusButton = document.querySelector('#pointRadius');
-let pointColorButton = document.querySelector('#pointColor'); */
+// Select Point div
+let pointdiv = document.querySelector('.input-feat-point');
+
+//Select Point Properties
+let pointRadius = document.querySelector('.point-radius');
+let pointColor = document.querySelector('.point-color');
+let pointBlur = document.querySelector('.point-blur');
+let pointOpacity = document.querySelector('.point-opacity');
+let pointSColor = document.querySelector('.point-scolor');
+let pointSOpacity = document.querySelector('.point-sopacity');
+let pointSWidth = document.querySelector('.point-swidth');
 
 // Layer Arrays
 let pointArr = [];
@@ -46,9 +59,13 @@ map.on('load', () => {
 
 // Geography Type
 geoTypebtn.addEventListener('change', (e) => {
+    gType = e.target.value;
+
     geoType(e);
 });
 
+// Point Properties
+pointListeners();
 
 // ********** //
 // Functions
@@ -56,9 +73,6 @@ geoTypebtn.addEventListener('change', (e) => {
 
 // Geography Type
 function geoType(e) {
-    const gType = e.target.value;
-    console.log(gType);
-
     map.addSource(gType, {
         'type': 'geojson',
         'data': {
@@ -83,6 +97,98 @@ function geoType(e) {
     });
 
     pointdiv.classList.remove('hidden');
+    pointdiv.style.display = 'block';
+
+    addPoint();
+}
+
+function addPoint() {
+    // Add Layer
+    map.addLayer({
+        'id': 'PointLayer',
+        'type': 'circle',
+        'source': gType,
+        'paint': {
+            'circle-radius': pointValues.pointRadius,
+            'circle-color': pointValues.pointColor,
+            'circle-blur': pointValues.pointBlur,
+            'circle-opacity': pointValues.pointOpacity,
+            'circle-stroke-color': pointValues.pointSColor,
+            'circle-stroke-opacity': pointValues.pointSOpacity,
+            'circle-stroke-width': pointValues.pointSWidth,
+        }
+    });
+
+    // Set Initial Values
+    setPointVals();
+}
+
+function pointListeners() {
+    // Radius
+    pointRadius.addEventListener('change', (e) => {
+        pointValues.pointRadius = e.target.valueAsNumber;
+
+        map.removeLayer('PointLayer');
+        addPoint();
+    });
+
+    // Color
+    pointColor.addEventListener('change', (e) => {
+        pointValues.pointColor = e.target.value;
+
+        map.removeLayer('PointLayer');
+        addPoint();
+    });
+
+    // Blur
+    pointBlur.addEventListener('change', (e) => {
+        pointValues.pointBlur = e.target.valueAsNumber;
+
+        map.removeLayer('PointLayer');
+        addPoint();
+    });
+
+    // Opacity
+    pointOpacity.addEventListener('change', (e) => {
+        pointValues.pointOpacity = e.target.valueAsNumber;
+
+        map.removeLayer('PointLayer');
+        addPoint();
+    });
+
+    // Stroke Color
+    pointSColor.addEventListener('change', (e) => {
+        pointValues.pointSColor = e.target.value;
+
+        map.removeLayer('PointLayer');
+        addPoint();
+    });
+
+    // Stroke Opacity
+    pointSOpacity.addEventListener('change', (e) => {
+        pointValues.pointSOpacity= e.target.valueAsNumber;
+
+        map.removeLayer('PointLayer');
+        addPoint();
+    });
+
+    // Stroke Width
+    pointSWidth.addEventListener('change', (e) => {
+        pointValues.pointSWidth = e.target.valueAsNumber;
+
+        map.removeLayer('PointLayer');
+        addPoint();
+    });
+}
+
+function setPointVals() {
+    pointRadius.value = pointValues.pointRadius;
+    pointColor.value = pointValues.pointColor;
+    pointBlur.value = pointValues.pointBlur;
+    pointOpacity.value = pointValues.pointOpacity;
+    pointSColor.value = pointValues.pointSColor;
+    pointSOpacity.value = pointValues.pointSOpacity;
+    pointSWidth.value = pointValues.pointSWidth;
 }
 
 // Wait for map to load
