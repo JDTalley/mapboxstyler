@@ -37,6 +37,7 @@ let pointArr = [];
 // Wait for load
 map.on('load', () => {
     inputdiv.classList.remove('hidden');
+    document.querySelector('.lds-facebook').style.display = "none";
 });
 
 // ********** //
