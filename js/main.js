@@ -35,7 +35,7 @@ let featDivs = document.querySelectorAll('.input-feat');
 // Select Point div
 let pointdiv = document.querySelector('.input-feat-point');
 
-//Select Point Properties
+// Select Point Properties
 let pointRadius = document.querySelector('.point-radius');
 let pointColor = document.querySelector('.point-color');
 let pointBlur = document.querySelector('.point-blur');
@@ -44,8 +44,10 @@ let pointSColor = document.querySelector('.point-scolor');
 let pointSOpacity = document.querySelector('.point-sopacity');
 let pointSWidth = document.querySelector('.point-swidth');
 
-// Layer Arrays
-let pointArr = [];
+// Select Generate Button
+let genJSONbtn = document.querySelector('.gen-json');
+let genJSONdiv = document.querySelector('.json');
+let jsonArea = document.querySelector('.json-area');
 
 // Wait for load
 map.on('load', () => {
@@ -66,6 +68,11 @@ geoTypebtn.addEventListener('change', (e) => {
 
 // Point Properties
 pointListeners();
+
+// Generate JSON
+genJSONbtn.addEventListener('click', (e) => {
+    generateJSON();
+})
 
 // ********** //
 // Functions
@@ -123,6 +130,39 @@ function addPoint() {
     setPointVals();
 }
 
+// Generate JSON
+function generateJSON() {
+    // Show text area
+    genJSONdiv.classList.remove('hidden');
+    genJSONdiv.style.display = 'block';
+
+    // text area content
+    let textArea;
+
+    switch (gType) {
+        case 'Point':
+            textArea = "'paint': {'circle-radius': " +
+            pointValues.pointRadius +
+            ", 'circle-color': " +
+            pointValues.pointColor +
+            ", 'circle-blur': " +
+            pointValues.pointBlur +
+            ", 'circle-opacity': " +
+            pointValues.pointOpacity +
+            ", 'circle-stroke-color': " +
+            pointValues.pointSColor +
+            ", 'circle-stroke-opacity': " +
+            pointValues.pointSOpacity +
+            ", 'circle-stroke-width': " +
+            pointValues.pointSWidth +
+            "}"
+    }
+
+    console.log(textArea);
+    jsonArea.value = textArea;
+}
+
+// Point Listeners
 function pointListeners() {
     // Radius
     pointRadius.addEventListener('change', (e) => {
