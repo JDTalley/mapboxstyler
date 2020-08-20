@@ -43,6 +43,7 @@
                         <select class="geometry-type" name="geometry-type">
                             <option value="none" selected disabled hidden>None</option>
                             <option value="Point">Point</option>
+                            <option value="LineString">Line</option>
                         </select>
                     </fieldset>
                 </div>
@@ -67,6 +68,26 @@
                         <input type="number" name="point-sopacity" class="point point-sopacity">
                         <label>Stroke Width</label>
                         <input type="number" name="point-swidth" class="point point-swidth">
+                    </fieldset>
+                </div>
+                <div class="input-feat input-feat-line hidden">
+                    <h3>Point Feature Properties</h3>
+                    <button class="gen-json">Generate JSON</button>
+                    <fieldset class="line-feature">
+                        <label>Blur</label>
+                        <input type="number" name="line-blur" class="line line-blur">
+                        <label>Line Cap</label>
+                        <Select name="line-cap" class="line line-cap">
+                            <option value="butt">Butt</option>
+                            <option value="round">Round</option>
+                            <option value="square">Square</option>
+                        </Select>
+                        <label>Color</label>
+                        <input type="color" name="line-color" class="line line-color">
+                        <label>Opacity</label>
+                        <input type="number" name="line-opacity" class="line line-opacity">
+                        <label>Width</label>
+                        <input type="number" name="line-width" class="line line-width">
                     </fieldset>
                 </div>
             </div>
