@@ -36,6 +36,13 @@ let pointSColor = document.querySelector('.point-scolor');
 let pointSOpacity = document.querySelector('.point-sopacity');
 let pointSWidth = document.querySelector('.point-swidth');
 
+// Select Line Properties
+let lineBlur = document.querySelector('.line-blur');
+let lineCap = document.querySelector('.line-cap');
+let lineColor = document.querySelector('.line-color');
+let lineOpacity = document.querySelector('.line-opacity');
+let lineWidth = document.querySelector('.line-width');
+
 // Select Generate Button
 let genJSONbtn = document.querySelector('.gen-json');
 let genJSONdiv = document.querySelector('.json');
@@ -60,6 +67,9 @@ geoTypebtn.addEventListener('change', (e) => {
 
 // Point Properties
 pointListeners();
+
+// Line Properties
+lineListeners();
 
 // Generate JSON
 genJSONbtn.addEventListener('click', (e) => {
@@ -205,6 +215,8 @@ function addLine() {
             'line-width': lineValues.lineWidth
         }
     });
+
+    setLineVals();
 }
 
 function getCords(type) {
@@ -212,7 +224,7 @@ function getCords(type) {
         case 'Point':
             return ([-80.4139, 37.22]);
         case 'LineString':
-            return([[-80.4139, 37.22],[-80.4141, 37.23]]);
+            return([[-80.4141, 37.15],[-80.4141, 37.25]]);
     }
 }
 
@@ -308,6 +320,44 @@ function pointListeners() {
     });
 }
 
+function lineListeners() {
+    // Line Blur
+    lineBlur.addEventListener('change', (e) => {
+        lineValues.lineBlur = e.target.valueAsNumber;
+
+        map.removeLayer('LineLayer');
+        addLine();
+    });
+    // Line Cap
+/*     lineCap.addEventListener('change', (e) => {
+        lineValues.lineCap = e.target.value;
+
+        map.removeLayer('LineLayer');
+        addLine();
+    }); */
+    // Line Color
+    lineColor.addEventListener('change', (e) => {
+        lineValues.lineColor = e.target.value;
+
+        map.removeLayer('LineLayer');
+        addLine();
+    });
+    // Line opacity
+    lineOpacity.addEventListener('change', (e) => {
+        lineValues.lineOpacity = e.target.valueAsNumber;
+
+        map.removeLayer('LineLayer');
+        addLine();
+    });
+    // Line Width
+    lineWidth.addEventListener('change', (e) => {
+        lineValues.lineWidth = e.target.valueAsNumber;
+
+        map.removeLayer('LineLayer');
+        addLine();
+    });
+}
+
 function setPointVals() {
     pointRadius.value = pointValues.pointRadius;
     pointColor.value = pointValues.pointColor;
@@ -316,4 +366,12 @@ function setPointVals() {
     pointSColor.value = pointValues.pointSColor;
     pointSOpacity.value = pointValues.pointSOpacity;
     pointSWidth.value = pointValues.pointSWidth;
+}
+
+function setLineVals() {
+    lineBlur.value = lineValues.lineBlur;
+    lineCap.value = lineValues.lineCap;
+    lineColor.value = lineValues.lineColor;
+    lineOpacity.value = lineValues.lineOpacity;
+    lineWidth.value = lineValues.lineWidth;
 }
