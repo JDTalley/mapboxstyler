@@ -95,6 +95,10 @@ function geoType(e) {
             addLine();
             break;
     }
+
+    // Show text area
+    genJSONdiv.classList.remove('hidden');
+    genJSONdiv.style.display = 'block';
 }
 
 function resetDefaults() {
@@ -117,7 +121,7 @@ function resetDefaults() {
     };
 }
 
-function addSource(type) {
+function addSource(gType) {
     // Remove Previous Layers
     try {
         map.removeLayer('PointLayer');
@@ -230,10 +234,6 @@ function getCords(type) {
 
 // Generate JSON
 function generateJSON() {
-    // Show text area
-    genJSONdiv.classList.remove('hidden');
-    genJSONdiv.style.display = 'block';
-
     // text area content
     let textArea;
 
@@ -253,6 +253,19 @@ function generateJSON() {
             pointValues.pointSOpacity +
             ", 'circle-stroke-width': " +
             pointValues.pointSWidth +
+            "}"
+            break;
+        case 'LineString':
+            textArea = "'paint': {'line-blur': " +
+            lineValues.lineBlur +
+            ", 'line-cap': '" +
+            lineValues.lineCap +
+            "', 'line-color': " +
+            lineValues.lineColor +
+            ", 'line-opacity': " +
+            lineValues.lineOpacity +
+            ", 'line-width': " +
+            lineValues.lineWidth +
             "}"
             break;
     }
