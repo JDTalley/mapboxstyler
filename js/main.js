@@ -123,27 +123,19 @@ function resetDefaults() {
 
 function addSource(gType) {
     // Remove Previous Layers
-    try {
-        map.removeLayer('PointLayer');
-    } catch (error) {
-        console.log('No point layer to remove');
+    if (map.getLayer('PointLayer') != undefined) {
+        map.removeLayer('PointLayer')
     }
-    try {
-        map.removeLayer('LineLayer');
-    } catch (error) {
-        console.log('No line layer to remove');
+    if (map.getLayer('LineLayer') != undefined) {
+        map.removeLayer('LineLayer')
     }
 
     // Remove Previous Sources
-    try {
-        map.removeSource('Point');
-    } catch (error) {
-        console.log('No point source to remove');
+    if (map.getSource('Point') != undefined) {
+        map.removeSource('Point')
     }
-    try {
-        map.removeSource('LineString');
-    } catch (error) {
-        console.log('No line source to remove');
+    if (map.getSource('LineString') != undefined) {
+        map.removeSource('LineString')
     }
     
     map.addSource(gType, {
