@@ -10,9 +10,9 @@ let map = new mapboxgl.Map({
 });
 
 // Initiate Values
-let gType;
-let pointValues;
-let lineValues;
+let gType
+let points = new Points
+let lineValues
 
 // Select Input div
 let inputdiv = document.querySelector('.input');
@@ -102,15 +102,7 @@ function geoType(e) {
 }
 
 function resetDefaults() {
-    pointValues = {
-        pointRadius: 5,
-        pointColor: '#000000',
-        pointBlur: 0,
-        pointOpacity: 1,
-        pointSColor: '#000000',
-        pointSOpacity: 1,
-        pointSWidth: 0
-    };
+    points.reset()
 
     lineValues = {
         lineBlur: 0,
@@ -184,13 +176,13 @@ function addPoint() {
         'type': 'circle',
         'source': gType,
         'paint': {
-            'circle-radius': pointValues.pointRadius,
-            'circle-color': pointValues.pointColor,
-            'circle-blur': pointValues.pointBlur,
-            'circle-opacity': pointValues.pointOpacity,
-            'circle-stroke-color': pointValues.pointSColor,
-            'circle-stroke-opacity': pointValues.pointSOpacity,
-            'circle-stroke-width': pointValues.pointSWidth,
+            'circle-radius': points.radius,
+            'circle-color': points.color,
+            'circle-blur': points.blur,
+            'circle-opacity': points.opacity,
+            'circle-stroke-color': points.sColor,
+            'circle-stroke-opacity': points.sOpacity,
+            'circle-stroke-width': points.sWidth,
         }
     });
 
@@ -232,19 +224,19 @@ function generateJSON() {
     switch (gType) {
         case 'Point':
             textArea = "'paint': {'circle-radius': " +
-            pointValues.pointRadius +
+            points.radius +
             ", 'circle-color': " +
-            pointValues.pointColor +
+            points.color +
             ", 'circle-blur': " +
-            pointValues.pointBlur +
+            points.blur +
             ", 'circle-opacity': " +
-            pointValues.pointOpacity +
+            points.opacity +
             ", 'circle-stroke-color': " +
-            pointValues.pointSColor +
+            points.sColor +
             ", 'circle-stroke-opacity': " +
-            pointValues.pointSOpacity +
+            points.sOpacity +
             ", 'circle-stroke-width': " +
-            pointValues.pointSWidth +
+            points.sWidth +
             "}"
             break;
         case 'LineString':
@@ -270,57 +262,78 @@ function generateJSON() {
 function pointListeners() {
     // Radius
     pointRadius.addEventListener('change', (e) => {
-        pointValues.pointRadius = e.target.valueAsNumber;
+        points.radius = e.target.valueAsNumber;
 
-        map.removeLayer('PointLayer');
+        if (map.getLayer('PointLayer') != undefined) {
+            map.removeLayer('PointLayer');
+        }
+        
         addPoint();
     });
 
     // Color
     pointColor.addEventListener('change', (e) => {
-        pointValues.pointColor = e.target.value;
+        points.color = e.target.value;
 
-        map.removeLayer('PointLayer');
+        if (map.getLayer('PointLayer') != undefined) {
+            map.removeLayer('PointLayer');
+        }
+
         addPoint();
     });
 
     // Blur
     pointBlur.addEventListener('change', (e) => {
-        pointValues.pointBlur = e.target.valueAsNumber;
+        points.blur = e.target.valueAsNumber;
 
-        map.removeLayer('PointLayer');
+        if (map.getLayer('PointLayer') != undefined) {
+            map.removeLayer('PointLayer');
+        }
+
         addPoint();
     });
 
     // Opacity
     pointOpacity.addEventListener('change', (e) => {
-        pointValues.pointOpacity = e.target.valueAsNumber;
+        points.opacity = e.target.valueAsNumber;
 
-        map.removeLayer('PointLayer');
+        if (map.getLayer('PointLayer') != undefined) {
+            map.removeLayer('PointLayer');
+        }
+
         addPoint();
     });
 
     // Stroke Color
     pointSColor.addEventListener('change', (e) => {
-        pointValues.pointSColor = e.target.value;
+        points.sColor = e.target.value;
 
-        map.removeLayer('PointLayer');
+        if (map.getLayer('PointLayer') != undefined) {
+            map.removeLayer('PointLayer');
+        }
+
         addPoint();
     });
 
     // Stroke Opacity
     pointSOpacity.addEventListener('change', (e) => {
-        pointValues.pointSOpacity= e.target.valueAsNumber;
+        points.sOpacity= e.target.valueAsNumber;
 
-        map.removeLayer('PointLayer');
+        if (map.getLayer('PointLayer') != undefined) {
+            map.removeLayer('PointLayer');
+        }
+
         addPoint();
     });
 
     // Stroke Width
     pointSWidth.addEventListener('change', (e) => {
-        pointValues.pointSWidth = e.target.valueAsNumber;
+        points.sWidth = e.target.valueAsNumber;
 
-        map.removeLayer('PointLayer');
+        if (map.getLayer('PointLayer') != undefined) {
+            map.removeLayer('PointLayer');
+        }
+        
         addPoint();
     });
 }
@@ -364,13 +377,13 @@ function lineListeners() {
 }
 
 function setPointVals() {
-    pointRadius.value = pointValues.pointRadius;
-    pointColor.value = pointValues.pointColor;
-    pointBlur.value = pointValues.pointBlur;
-    pointOpacity.value = pointValues.pointOpacity;
-    pointSColor.value = pointValues.pointSColor;
-    pointSOpacity.value = pointValues.pointSOpacity;
-    pointSWidth.value = pointValues.pointSWidth;
+    pointRadius.value = points.radius;
+    pointColor.value = points.color;
+    pointBlur.value = points.blur;
+    pointOpacity.value = points.opacity;
+    pointSColor.value = points.sColor;
+    pointSOpacity.value = points.sOpacity;
+    pointSWidth.value = points.sWidth;
 }
 
 function setLineVals() {
