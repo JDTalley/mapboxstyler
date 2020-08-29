@@ -14,4 +14,25 @@ class Points {
         this.sOpacity   = 1
         this.sWidth     = 0
     }
+
+    addPoint() {
+        // Add Layer
+        map.addLayer({
+            'id': 'PointLayer',
+            'type': 'circle',
+            'source': gType,
+            'paint': {
+                'circle-radius': points.radius,
+                'circle-color': points.color,
+                'circle-blur': points.blur,
+                'circle-opacity': points.opacity,
+                'circle-stroke-color': points.sColor,
+                'circle-stroke-opacity': points.sOpacity,
+                'circle-stroke-width': points.sWidth,
+            }
+        });
+
+        // Set Initial Values
+        setPointVals();
+    }
 }

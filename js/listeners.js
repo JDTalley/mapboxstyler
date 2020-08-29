@@ -12,7 +12,7 @@ function addListeners() {
             map.removeLayer('PointLayer');
         }
         
-        addPoint();
+        points.addPoint();
     });
 
     // Color
@@ -23,7 +23,7 @@ function addListeners() {
             map.removeLayer('PointLayer');
         }
 
-        addPoint();
+        points.addPoint();
     });
 
     // Blur
@@ -34,7 +34,7 @@ function addListeners() {
             map.removeLayer('PointLayer');
         }
 
-        addPoint();
+        points.addPoint();
     });
 
     // Opacity
@@ -45,7 +45,7 @@ function addListeners() {
             map.removeLayer('PointLayer');
         }
 
-        addPoint();
+        points.addPoint();
     });
 
     // Stroke Color
@@ -56,7 +56,7 @@ function addListeners() {
             map.removeLayer('PointLayer');
         }
 
-        addPoint();
+        points.addPoint();
     });
 
     // Stroke Opacity
@@ -67,7 +67,7 @@ function addListeners() {
             map.removeLayer('PointLayer');
         }
 
-        addPoint();
+        points.addPoint();
     });
 
     // Stroke Width
@@ -78,7 +78,7 @@ function addListeners() {
             map.removeLayer('PointLayer');
         }
         
-        addPoint();
+        points.addPoint();
     });
 
     // Line Listeners
