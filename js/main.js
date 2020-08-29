@@ -12,7 +12,7 @@ let map = new mapboxgl.Map({
 // Initiate Values
 let gType
 let points = new Points
-let lineValues
+let lines  = new Lines
 
 // Select Input div
 let inputdiv = document.querySelector('.input');
@@ -104,13 +104,7 @@ function geoType(e) {
 function resetDefaults() {
     points.reset()
 
-    lineValues = {
-        lineBlur: 0,
-        lineCap: 'butt',
-        lineColor: '#000000',
-        lineOpacity: 1,
-        lineWidth: 1
-    };
+    lines.reset()
 }
 
 function addSource(gType) {
@@ -196,11 +190,11 @@ function addLine() {
         'type': 'line',
         'source': gType,
         'paint': {
-            'line-blur': lineValues.lineBlur,
-            //'line-cap': lineValues.lineCap,
-            'line-color': lineValues.lineColor,
-            'line-opacity': lineValues.lineOpacity,
-            'line-width': lineValues.lineWidth
+            'line-blur': lines.blur,
+            //'line-cap': lines.cap,
+            'line-color': lines.color,
+            'line-opacity': lines.opacity,
+            'line-width': lines.width
         }
     });
 
@@ -241,15 +235,15 @@ function generateJSON() {
             break;
         case 'LineString':
             textArea = "'paint': {'line-blur': " +
-            lineValues.lineBlur +
+            lines.blur +
             ", 'line-cap': '" +
-            lineValues.lineCap +
+            lines.cap +
             "', 'line-color': " +
-            lineValues.lineColor +
+            lines.color +
             ", 'line-opacity': " +
-            lineValues.lineOpacity +
+            lines.opacity +
             ", 'line-width': " +
-            lineValues.lineWidth +
+            lines.width +
             "}"
             break;
     }
@@ -341,35 +335,37 @@ function pointListeners() {
 function lineListeners() {
     // Line Blur
     lineBlur.addEventListener('change', (e) => {
-        lineValues.lineBlur = e.target.valueAsNumber;
+        lines.blur = e.target.valueAsNumber;
 
         map.removeLayer('LineLayer');
         addLine();
     });
+
     // Line Cap
 /*     lineCap.addEventListener('change', (e) => {
-        lineValues.lineCap = e.target.value;
+        lines.cap = e.target.value;
 
         map.removeLayer('LineLayer');
         addLine();
     }); */
+
     // Line Color
     lineColor.addEventListener('change', (e) => {
-        lineValues.lineColor = e.target.value;
+        lines.color = e.target.value;
 
         map.removeLayer('LineLayer');
         addLine();
     });
     // Line opacity
     lineOpacity.addEventListener('change', (e) => {
-        lineValues.lineOpacity = e.target.valueAsNumber;
+        lines.opacity = e.target.valueAsNumber;
 
         map.removeLayer('LineLayer');
         addLine();
     });
     // Line Width
     lineWidth.addEventListener('change', (e) => {
-        lineValues.lineWidth = e.target.valueAsNumber;
+        lines.width = e.target.valueAsNumber;
 
         map.removeLayer('LineLayer');
         addLine();
@@ -387,9 +383,9 @@ function setPointVals() {
 }
 
 function setLineVals() {
-    lineBlur.value = lineValues.lineBlur;
-    lineCap.value = lineValues.lineCap;
-    lineColor.value = lineValues.lineColor;
-    lineOpacity.value = lineValues.lineOpacity;
-    lineWidth.value = lineValues.lineWidth;
+    lineBlur.value = lines.blur;
+    lineCap.value = lines.cap;
+    lineColor.value = lines.color;
+    lineOpacity.value = lines.opacity;
+    lineWidth.value = lines.width;
 }
