@@ -51,12 +51,6 @@ function geoType(e) {
     selectors.genJSONdiv.style.display = 'block';
 }
 
-function resetDefaults() {
-    points.reset()
-
-    lines.reset()
-}
-
 function addSource(gType) {
     // Remove Previous Layers
     if (map.getLayer('PointLayer') != undefined) {
@@ -113,6 +107,12 @@ function showProps(type) {
     }
 }
 
+function resetDefaults() {
+    points.reset()
+
+    lines.reset()
+}
+
 function getCords(type) {
     switch (type) {
         case 'Point':
@@ -120,14 +120,4 @@ function getCords(type) {
         case 'LineString':
             return([[-80.4141, 37.15],[-80.4141, 37.25]]);
     }
-}
-
-function setPointVals() {
-    selectors.pointRadius.value = points.radius;
-    selectors.pointColor.value = points.color;
-    selectors.pointBlur.value = points.blur;
-    selectors.pointOpacity.value = points.opacity;
-    selectors.pointSColor.value = points.sColor;
-    selectors.pointSOpacity.value = points.sOpacity;
-    selectors.pointSWidth.value = points.sWidth;
 }

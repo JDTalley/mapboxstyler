@@ -33,6 +33,16 @@ class Points {
         });
 
         // Set Initial Values
-        setPointVals();
+        this.setPointVals();
+    }
+
+    setPointVals() {
+        selectors.pointRadius.value = this.radius;
+        selectors.pointColor.value = this.color;
+        selectors.pointBlur.value = this.blur;
+        selectors.pointOpacity.value = this.opacity;
+        selectors.pointSColor.value = this.sColor;
+        selectors.pointSOpacity.value = this.sOpacity;
+        selectors.pointSWidth.value = this.sWidth;
     }
 }
