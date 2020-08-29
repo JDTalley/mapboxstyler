@@ -42,7 +42,7 @@ function geoType(e) {
             points.addPoint();
             break;
         case 'LineString':
-            addLine();
+            lines.addLine();
             break;
     }
 
@@ -111,23 +111,6 @@ function showProps(type) {
             selectors.linediv.style.display = 'block';
             break;
     }
-}
-
-function addLine() {
-    map.addLayer({
-        'id': 'LineLayer',
-        'type': 'line',
-        'source': gType,
-        'paint': {
-            'line-blur': lines.blur,
-            //'line-cap': lines.cap,
-            'line-color': lines.color,
-            'line-opacity': lines.opacity,
-            'line-width': lines.width
-        }
-    });
-
-    setLineVals();
 }
 
 function getCords(type) {

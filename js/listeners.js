@@ -89,7 +89,7 @@ function addListeners() {
         if (map.getLayer('LineLayer') !== undefined) {
             map.removeLayer('LineLayer');
         }
-        addLine();
+        lines.addLine();
     });
 
     // Line Cap
@@ -99,7 +99,7 @@ function addListeners() {
         if (map.getLayer('LineLayer') !== undefined) {
             map.removeLayer('LineLayer');
         }
-        addLine();
+        lines.addLine();
     }); */
 
     // Line Color
@@ -109,7 +109,7 @@ function addListeners() {
         if (map.getLayer('LineLayer') !== undefined) {
             map.removeLayer('LineLayer');
         }
-        addLine();
+        lines.addLine();
     });
 
     // Line opacity
@@ -119,7 +119,7 @@ function addListeners() {
         if (map.getLayer('LineLayer') !== undefined) {
             map.removeLayer('LineLayer');
         }
-        addLine();
+        lines.addLine();
     });
 
     // Line Width
@@ -129,7 +129,7 @@ function addListeners() {
         if (map.getLayer('LineLayer') !== undefined) {
             map.removeLayer('LineLayer');
         }
-        addLine();
+        lines.addLine();
     });
 
     // ********** //
