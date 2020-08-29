@@ -14,43 +14,12 @@ let gType
 let points = new Points
 let lines  = new Lines
 
-// Select Input div
-let inputdiv = document.querySelector('.input');
-
-// Select Geometry Type
-let geoTypebtn = document.querySelector('.geometry-type');
-
-// Select Feat divs
-let featDivs = document.querySelectorAll('.input-feat');
-
-// Select Prop divs
-let pointdiv = document.querySelector('.input-feat-point');
-let linediv = document.querySelector('.input-feat-line');
-
-// Select Point Properties
-let pointRadius = document.querySelector('.point-radius');
-let pointColor = document.querySelector('.point-color');
-let pointBlur = document.querySelector('.point-blur');
-let pointOpacity = document.querySelector('.point-opacity');
-let pointSColor = document.querySelector('.point-scolor');
-let pointSOpacity = document.querySelector('.point-sopacity');
-let pointSWidth = document.querySelector('.point-swidth');
-
-// Select Line Properties
-let lineBlur = document.querySelector('.line-blur');
-let lineCap = document.querySelector('.line-cap');
-let lineColor = document.querySelector('.line-color');
-let lineOpacity = document.querySelector('.line-opacity');
-let lineWidth = document.querySelector('.line-width');
-
-// Select Generate Button
-let genJSONbtn = document.querySelector('.gen-json');
-let genJSONdiv = document.querySelector('.json');
-let jsonArea = document.querySelector('.json-area');
+// Selectors
+let selectors = new Selectors
 
 // Wait for load
 map.on('load', () => {
-    inputdiv.classList.remove('hidden');
+    selectors.inputdiv.classList.remove('hidden');
     document.querySelector('.lds-facebook').style.display = "none";
 });
 
@@ -59,7 +28,7 @@ map.on('load', () => {
 // ********** //
 
 // Geography Type
-geoTypebtn.addEventListener('change', (e) => {
+selectors.geoTypebtn.addEventListener('change', (e) => {
     gType = e.target.value;
 
     geoType(e);
@@ -72,7 +41,7 @@ pointListeners();
 lineListeners();
 
 // Generate JSON
-genJSONbtn.addEventListener('click', (e) => {
+selectors.genJSONbtn.addEventListener('click', (e) => {
     generateJSON();
 })
 
@@ -97,8 +66,8 @@ function geoType(e) {
     }
 
     // Show text area
-    genJSONdiv.classList.remove('hidden');
-    genJSONdiv.style.display = 'block';
+    selectors.genJSONdiv.classList.remove('hidden');
+    selectors.genJSONdiv.style.display = 'block';
 }
 
 function resetDefaults() {
@@ -146,19 +115,19 @@ function addSource(gType) {
 }
 
 function hideProps() {
-    pointdiv.style.display = 'none';
-    linediv.style.display = 'none';
+    selectors.pointdiv.style.display = 'none';
+    selectors.linediv.style.display = 'none';
 }
 
 function showProps(type) {
     switch (type) {
         case "Point":
-            pointdiv.classList.remove('hidden');
-            pointdiv.style.display = 'block';
+            selectors.pointdiv.classList.remove('hidden');
+            selectors.pointdiv.style.display = 'block';
             break;
         case "LineString":
-            linediv.classList.remove('hidden');
-            linediv.style.display = 'block';
+            selectors.linediv.classList.remove('hidden');
+            selectors.linediv.style.display = 'block';
             break;
     }
 }
@@ -248,14 +217,13 @@ function generateJSON() {
             break;
     }
 
-    console.log(textArea);
-    jsonArea.value = textArea;
+    selectors.jsonArea.value = textArea;
 }
 
 // Point Listeners
 function pointListeners() {
     // Radius
-    pointRadius.addEventListener('change', (e) => {
+    selectors.pointRadius.addEventListener('change', (e) => {
         points.radius = e.target.valueAsNumber;
 
         if (map.getLayer('PointLayer') != undefined) {
@@ -266,7 +234,7 @@ function pointListeners() {
     });
 
     // Color
-    pointColor.addEventListener('change', (e) => {
+    selectors.pointColor.addEventListener('change', (e) => {
         points.color = e.target.value;
 
         if (map.getLayer('PointLayer') != undefined) {
@@ -277,7 +245,7 @@ function pointListeners() {
     });
 
     // Blur
-    pointBlur.addEventListener('change', (e) => {
+    selectors.pointBlur.addEventListener('change', (e) => {
         points.blur = e.target.valueAsNumber;
 
         if (map.getLayer('PointLayer') != undefined) {
@@ -288,7 +256,7 @@ function pointListeners() {
     });
 
     // Opacity
-    pointOpacity.addEventListener('change', (e) => {
+    selectors.pointOpacity.addEventListener('change', (e) => {
         points.opacity = e.target.valueAsNumber;
 
         if (map.getLayer('PointLayer') != undefined) {
@@ -299,7 +267,7 @@ function pointListeners() {
     });
 
     // Stroke Color
-    pointSColor.addEventListener('change', (e) => {
+    selectors.pointSColor.addEventListener('change', (e) => {
         points.sColor = e.target.value;
 
         if (map.getLayer('PointLayer') != undefined) {
@@ -310,7 +278,7 @@ function pointListeners() {
     });
 
     // Stroke Opacity
-    pointSOpacity.addEventListener('change', (e) => {
+    selectors.pointSOpacity.addEventListener('change', (e) => {
         points.sOpacity= e.target.valueAsNumber;
 
         if (map.getLayer('PointLayer') != undefined) {
@@ -321,7 +289,7 @@ function pointListeners() {
     });
 
     // Stroke Width
-    pointSWidth.addEventListener('change', (e) => {
+    selectors.pointSWidth.addEventListener('change', (e) => {
         points.sWidth = e.target.valueAsNumber;
 
         if (map.getLayer('PointLayer') != undefined) {
@@ -334,7 +302,7 @@ function pointListeners() {
 
 function lineListeners() {
     // Line Blur
-    lineBlur.addEventListener('change', (e) => {
+    selectors.lineBlur.addEventListener('change', (e) => {
         lines.blur = e.target.valueAsNumber;
 
         if (map.getLayer('LineLayer') !== undefined) {
@@ -344,7 +312,7 @@ function lineListeners() {
     });
 
     // Line Cap
-/*     lineCap.addEventListener('change', (e) => {
+/*     selectors.lineCap.addEventListener('change', (e) => {
         lines.cap = e.target.value;
 
         if (map.getLayer('LineLayer') !== undefined) {
@@ -354,7 +322,7 @@ function lineListeners() {
     }); */
 
     // Line Color
-    lineColor.addEventListener('change', (e) => {
+    selectors.lineColor.addEventListener('change', (e) => {
         lines.color = e.target.value;
 
         if (map.getLayer('LineLayer') !== undefined) {
@@ -363,7 +331,7 @@ function lineListeners() {
         addLine();
     });
     // Line opacity
-    lineOpacity.addEventListener('change', (e) => {
+    selectors.lineOpacity.addEventListener('change', (e) => {
         lines.opacity = e.target.valueAsNumber;
 
         if (map.getLayer('LineLayer') !== undefined) {
@@ -372,7 +340,7 @@ function lineListeners() {
         addLine();
     });
     // Line Width
-    lineWidth.addEventListener('change', (e) => {
+    selectors.lineWidth.addEventListener('change', (e) => {
         lines.width = e.target.valueAsNumber;
 
         if (map.getLayer('LineLayer') !== undefined) {
@@ -383,19 +351,19 @@ function lineListeners() {
 }
 
 function setPointVals() {
-    pointRadius.value = points.radius;
-    pointColor.value = points.color;
-    pointBlur.value = points.blur;
-    pointOpacity.value = points.opacity;
-    pointSColor.value = points.sColor;
-    pointSOpacity.value = points.sOpacity;
-    pointSWidth.value = points.sWidth;
+    selectors.pointRadius.value = points.radius;
+    selectors.pointColor.value = points.color;
+    selectors.pointBlur.value = points.blur;
+    selectors.pointOpacity.value = points.opacity;
+    selectors.pointSColor.value = points.sColor;
+    selectors.pointSOpacity.value = points.sOpacity;
+    selectors.pointSWidth.value = points.sWidth;
 }
 
 function setLineVals() {
-    lineBlur.value = lines.blur;
-    lineCap.value = lines.cap;
-    lineColor.value = lines.color;
-    lineOpacity.value = lines.opacity;
-    lineWidth.value = lines.width;
+    selectors.lineBlur.value = lines.blur;
+    selectors.lineCap.value = lines.cap;
+    selectors.lineColor.value = lines.color;
+    selectors.lineOpacity.value = lines.opacity;
+    selectors.lineWidth.value = lines.width;
 }
