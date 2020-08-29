@@ -51,6 +51,7 @@ function geoType(e) {
     selectors.genJSONdiv.style.display = 'block';
 }
 
+// Add Source
 function addSource(gType) {
     // Remove Previous Layers
     if (map.getLayer('PointLayer') != undefined) {
@@ -89,11 +90,13 @@ function addSource(gType) {
     });
 }
 
+// Hide Properties
 function hideProps() {
     selectors.pointdiv.style.display = 'none';
     selectors.linediv.style.display = 'none';
 }
 
+// Show Properties
 function showProps(type) {
     switch (type) {
         case "Point":
@@ -107,12 +110,14 @@ function showProps(type) {
     }
 }
 
+// Reset Properties to default values
 function resetDefaults() {
     points.reset()
 
     lines.reset()
 }
 
+// Get Coordinates for each Geography type
 function getCords(type) {
     switch (type) {
         case 'Point':
