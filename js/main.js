@@ -337,7 +337,9 @@ function lineListeners() {
     lineBlur.addEventListener('change', (e) => {
         lines.blur = e.target.valueAsNumber;
 
-        map.removeLayer('LineLayer');
+        if (map.getLayer('LineLayer') !== undefined) {
+            map.removeLayer('LineLayer');
+        }
         addLine();
     });
 
@@ -345,7 +347,9 @@ function lineListeners() {
 /*     lineCap.addEventListener('change', (e) => {
         lines.cap = e.target.value;
 
-        map.removeLayer('LineLayer');
+        if (map.getLayer('LineLayer') !== undefined) {
+            map.removeLayer('LineLayer');
+        }
         addLine();
     }); */
 
@@ -353,21 +357,27 @@ function lineListeners() {
     lineColor.addEventListener('change', (e) => {
         lines.color = e.target.value;
 
-        map.removeLayer('LineLayer');
+        if (map.getLayer('LineLayer') !== undefined) {
+            map.removeLayer('LineLayer');
+        }
         addLine();
     });
     // Line opacity
     lineOpacity.addEventListener('change', (e) => {
         lines.opacity = e.target.valueAsNumber;
 
-        map.removeLayer('LineLayer');
+        if (map.getLayer('LineLayer') !== undefined) {
+            map.removeLayer('LineLayer');
+        }
         addLine();
     });
     // Line Width
     lineWidth.addEventListener('change', (e) => {
         lines.width = e.target.valueAsNumber;
 
-        map.removeLayer('LineLayer');
+        if (map.getLayer('LineLayer') !== undefined) {
+            map.removeLayer('LineLayer');
+        }
         addLine();
     });
 }
