@@ -17,17 +17,14 @@ let lines  = new Lines
 // Selectors
 let selectors = new Selectors
 
+// Listeners
+addListeners()
+
 // Wait for load
 map.on('load', () => {
     selectors.inputdiv.classList.remove('hidden');
     document.querySelector('.lds-facebook').style.display = "none";
 });
-
-// ********** //
-// Add listeners
-// ********** //
-
-addListeners()
 
 // ********** //
 // Functions
