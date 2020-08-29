@@ -131,11 +131,3 @@ function setPointVals() {
     selectors.pointSOpacity.value = points.sOpacity;
     selectors.pointSWidth.value = points.sWidth;
 }
-
-function setLineVals() {
-    selectors.lineBlur.value = lines.blur;
-    selectors.lineCap.value = lines.cap;
-    selectors.lineColor.value = lines.color;
-    selectors.lineOpacity.value = lines.opacity;
-    selectors.lineWidth.value = lines.width;
-}

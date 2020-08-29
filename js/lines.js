@@ -25,6 +25,14 @@ class Lines {
             }
         });
     
-        setLineVals();
+        this.setLineVals();
+    }
+
+    setLineVals() {
+        selectors.lineBlur.value = this.blur;
+        selectors.lineCap.value = this.cap;
+        selectors.lineColor.value = this.color;
+        selectors.lineOpacity.value = this.opacity;
+        selectors.lineWidth.value = this.width;
     }
 }
