@@ -13,6 +13,7 @@ let map = new mapboxgl.Map({
 let gType
 let points = new Points
 let lines  = new Lines
+let polygons  = new Polygons
 
 // Selectors
 let selectors = new Selectors
@@ -44,6 +45,9 @@ function geoType(e) {
         case 'LineString':
             lines.addLine();
             break;
+        case 'Polygon':
+            polygons.addPolygon();
+            break;
     }
 
     // Show text area
@@ -60,6 +64,9 @@ function addSource(gType) {
     if (map.getLayer('LineLayer') != undefined) {
         map.removeLayer('LineLayer')
     }
+    if (map.getLayer('PolygonLayer') != undefined) {
+        map.removeLayer('PolygonLayer')
+    }
 
     // Remove Previous Sources
     if (map.getSource('Point') != undefined) {
@@ -67,6 +74,9 @@ function addSource(gType) {
     }
     if (map.getSource('LineString') != undefined) {
         map.removeSource('LineString')
+    }
+    if (map.getSource('Polygon') != undefined) {
+        map.removeSource('Polygon')
     }
     
     map.addSource(gType, {
@@ -94,6 +104,7 @@ function addSource(gType) {
 function hideProps() {
     selectors.pointdiv.style.display = 'none';
     selectors.linediv.style.display = 'none';
+    selectors.polygondiv.style.display = 'none';
 }
 
 // Show Properties
@@ -107,6 +118,10 @@ function showProps(type) {
             selectors.linediv.classList.remove('hidden');
             selectors.linediv.style.display = 'block';
             break;
+        case "Polygon":
+            selectors.polygondiv.classList.remove('hidden');
+            selectors.polygondiv.style.display = 'block';
+            break;
     }
 }
 
@@ -115,6 +130,8 @@ function resetDefaults() {
     points.reset()
 
     lines.reset()
+
+    polygons.reset()
 }
 
 // Get Coordinates for each Geography type
@@ -124,5 +141,7 @@ function getCords(type) {
             return ([-80.4139, 37.22]);
         case 'LineString':
             return([[-80.4141, 37.15],[-80.4141, 37.25]]);
+        case 'Polygon':
+            return([[-80.4141, 37.15],[-80.4141, 37.25],[-80.51, 37.25],[-80.51, 37.15],[-80.4141, 37.15]]);
     }
 }
