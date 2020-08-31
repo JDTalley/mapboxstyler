@@ -17,11 +17,11 @@ class Lines {
             'type': 'line',
             'source': gType,
             'paint': {
-                'line-blur': lines.blur,
-                //'line-cap': lines.cap,
-                'line-color': lines.color,
-                'line-opacity': lines.opacity,
-                'line-width': lines.width
+                'line-blur': this.blur,
+                //'line-cap': this.cap,
+                'line-color': this.color,
+                'line-opacity': this.opacity,
+                'line-width': this.width
             }
         });
     
