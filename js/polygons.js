@@ -17,7 +17,7 @@ class Polygons {
             'paint': {
                 'fill-color': this.color,
                 'fill-opacity': this.opacity,
-                'fill-outline-color': this.color
+                'fill-outline-color': this.oColor
             }
         });
     
