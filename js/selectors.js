@@ -12,6 +12,7 @@ class Selectors {
         // Select Prop divs
         this.pointdiv = document.querySelector('.input-feat-point');
         this.linediv = document.querySelector('.input-feat-line');
+        this.polygondiv = document.querySelector('.input-feat-polygon');
 
         // Select Point Properties
         this.pointRadius = document.querySelector('.point-radius');
@@ -28,6 +29,11 @@ class Selectors {
         this.lineColor = document.querySelector('.line-color');
         this.lineOpacity = document.querySelector('.line-opacity');
         this.lineWidth = document.querySelector('.line-width');
+
+        // Select Polygon Properties
+        this.polygonColor = document.querySelector('.polygon-color');
+        this.polygonOpacity = document.querySelector('.polygon-opacity');
+        this.polygonOColor = document.querySelector('.polygon-outline-color');
 
         // Select Generate Button
         this.genJSONbtn = document.querySelector('.gen-json');
