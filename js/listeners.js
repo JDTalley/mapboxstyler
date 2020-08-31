@@ -132,6 +132,37 @@ function addListeners() {
         lines.addLine();
     });
 
+    // Polygon Listeners
+    // Polygon Color
+    selectors.polygonColor.addEventListener('change', (e) => {
+        polygon.color = e.target.valueAsNumber;
+
+        if (map.getLayer('PolygonLayer') !== undefined) {
+            map.removeLayer('PolygonLayer');
+        }
+        polygons.addPolygon();
+    });
+
+    // Polygon Opacity
+    selectors.polygonOpacity.addEventListener('change', (e) => {
+        polygon.opacity = e.target.valueAsNumber;
+
+        if (map.getLayer('PolygonLayer') !== undefined) {
+            map.removeLayer('PolygonLayer');
+        }
+        polygons.addPolygon();
+    });
+
+    // Polygon Outline Color
+    selectors.polygonOColor.addEventListener('change', (e) => {
+        polygon.oColor = e.target.valueAsNumber;
+
+        if (map.getLayer('PolygonLayer') !== undefined) {
+            map.removeLayer('PolygonLayer');
+        }
+        polygons.addPolygon();
+    });
+
     // ********** //
     // Other Buttons
     // ********** //
