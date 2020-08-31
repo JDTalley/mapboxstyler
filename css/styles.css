@@ -49,7 +49,9 @@ Layout
     background-color: white;
 }
 
-.point-feature {
+.point-feature,
+.line-feature,
+.polygon-feature {
     display: flex;
 }
 
