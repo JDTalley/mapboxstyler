@@ -22,13 +22,13 @@ class Points {
             'type': 'circle',
             'source': gType,
             'paint': {
-                'circle-radius': points.radius,
-                'circle-color': points.color,
-                'circle-blur': points.blur,
-                'circle-opacity': points.opacity,
-                'circle-stroke-color': points.sColor,
-                'circle-stroke-opacity': points.sOpacity,
-                'circle-stroke-width': points.sWidth,
+                'circle-radius': this.radius,
+                'circle-color': this.color,
+                'circle-blur': this.blur,
+                'circle-opacity': this.opacity,
+                'circle-stroke-color': this.sColor,
+                'circle-stroke-opacity': this.sOpacity,
+                'circle-stroke-width': this.sWidth,
             }
         });
 
