@@ -135,7 +135,7 @@ function addListeners() {
     // Polygon Listeners
     // Polygon Color
     selectors.polygonColor.addEventListener('change', (e) => {
-        polygons.color = e.target.valueAsNumber;
+        polygons.color = e.target.value;
 
         if (map.getLayer('PolygonLayer') !== undefined) {
             map.removeLayer('PolygonLayer');
@@ -155,7 +155,7 @@ function addListeners() {
 
     // Polygon Outline Color
     selectors.polygonOColor.addEventListener('change', (e) => {
-        polygons.oColor = e.target.valueAsNumber;
+        polygons.oColor = e.target.value;
 
         if (map.getLayer('PolygonLayer') !== undefined) {
             map.removeLayer('PolygonLayer');
