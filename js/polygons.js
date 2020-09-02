@@ -6,6 +6,8 @@ class Polygons {
     reset() {
         this.color = '#000000'
         this.opacity = 1
+
+        // Outline
         this.oColor = '#000000'
     }
 
